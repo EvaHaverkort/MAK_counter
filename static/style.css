@@ -1,37 +1,71 @@
-* {
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url('../static/background_index.png'); /* Path to your image */
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
-body {
-  background: #f2f2f2;
+.header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
-@keyframes slide {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+.mak-logo {
+  height: 100px; /* Adjust the height to your preference */
+}
+
+.donation-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 170px); /* 100vh minus the height of the logos area */
+}
+
+.donation-counter h1 {
+  display: inline-block; /* Make sure the background only covers the text */
+  background-color: #FF8C00; /* Orange background */
+  border-radius: 20px; /* Rounded corners */
+  padding: 30px 50px; /* Padding inside the counter */
+  color: #ffffff; /* White text color */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow for depth */
+  margin: 0; /* Remove any default margin */
+  font-size: 2rem; /* Adjust the font size as needed */
+  font-weight: bold; /* Make the text bold */
+  text-align: center; /* Center text inside the h1 */
 }
 
 .logos {
+  background-color: white;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  padding: 25px 0px;
-  background: white;
-  white-space: nowrap;
-  position: relative;
+  height: 170px; /* Explicitly set the height for the logos area */
 }
 
-
 .logos-slide {
-  display: inline-block;
-  animation: 15s slide infinite linear;
+  display: flex;
+  animation: scroll 60s linear infinite;
 }
 
 .logos-slide img {
-  height: 70px;
+  height: 120px;
   margin: 0 20px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
