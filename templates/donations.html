@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page</title>
+</head>
+<body>
+    <h1>Make a Donation</h1>
+    <form id="donation-form">
+        <label for="amount">Donation Amount:</label>
+        <input type="number" id="amount" name="amount" required>
+        <button type="submit">Donate</button>
+    </form>
+
+    <p>Total Donations: $<span id="donation-total">{{ total_donations }}</span></p>
+
+    <script>
+        document.getElementById('donation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const amount = document.getElementById('amount').value;
+
+            fetch('/donations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `amount=${amount}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById('donation-total').innerText = data.new_total;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
