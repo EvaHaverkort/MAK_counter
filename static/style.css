@@ -41,7 +41,7 @@ body {
   padding: 30px 100px; /* Padding inside the counter */
   color: #ffffff; /* White text color */
   margin: 0; /* Remove any default margin */
-  font-size: 3rem; /* Adjust the font size as needed */
+  font-size: 2.5rem; /* Adjust the font size as needed */
   font-weight: bold; /* Make the text bold */
   text-align: center; /* Center text inside the h1 */
 }
