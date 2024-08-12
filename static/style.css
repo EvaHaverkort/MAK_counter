@@ -38,11 +38,11 @@ body {
   display: inline-block; /* Make sure the background only covers the text */
   background-color: #FF8C00; /* Orange background */
   border-radius: 20px; /* Rounded corners */
-  padding: 30px 50px; /* Padding inside the counter */
+  padding: 80px 120px; /* Padding inside the counter */
   color: #ffffff; /* White text color */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow for depth */
   margin: 0; /* Remove any default margin */
-  font-size: 2rem; /* Adjust the font size as needed */
+  font-size: 4rem; /* Adjust the font size as needed */
   font-weight: bold; /* Make the text bold */
   text-align: center; /* Center text inside the h1 */
 }
