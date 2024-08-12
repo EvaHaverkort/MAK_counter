@@ -163,6 +163,41 @@ body {
   animation-play-state: paused;
 }
 
+
+.logos-static {
+  display: flex;
+  justify-content: center; /* Centers the logos horizontally */
+  align-items: center; /* Vertically aligns the logos (if different heights) */
+  position: fixed; /* Fixes the logos at the bottom of the page */
+  bottom: 0; /* Aligns the container to the bottom */
+  width: 100%; /* Ensures the container spans the full width of the page */
+  background-color: #ffffff; /* Optional: Add a background color */
+  padding: 10px 0; /* Optional: Add padding for spacing */
+}
+
+.logos-static img {
+  max-height: 140px; /* Sets a maximum height for all logos */
+  margin: 0 10px; /* Adds space between logos */
+  object-fit: contain; /* Ensures logos maintain their aspect ratio */
+}
+
+.logos-static-redcross{
+  display: flex;
+  justify-content: center; /* Centers the logos horizontally */
+  align-items: center; /* Vertically aligns the logos (if different heights) */
+  position: fixed; /* Fixes the logos at the bottom of the page */
+  bottom: 0; /* Aligns the container to the bottom */
+  width: 100%; /* Ensures the container spans the full width of the page */
+  background-color: #ffffff; /* Optional: Add a background color */
+  padding: 10px 0; /* Optional: Add padding for spacing */
+}
+
+.logos-static-redcross img {
+  max-height: 90px; /* Sets a maximum height for all logos */
+  margin: 0 10px; /* Adds space between logos */
+  object-fit: contain; /* Ensures logos maintain their aspect ratio */
+}
+
 .logos-slide {
   display: inline-block;
   animation: 60s slide infinite linear;
