@@ -12,6 +12,48 @@
     <div class="header">
         <img src="../static/mak_logo_wit.png" alt="MAK Logo" class="mak-logo">
     </div>
+    <div id="donation-popup" style="display: none;">
+      <div id="popup-content">
+          Donation total has been updated!
+          <button id="close-popup">Close</button>
+      </div>
+  </div>
+
+  <style>
+    #donation-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    #popup-content {
+        text-align: center;
+    }
+
+    #close-popup {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+
+    <div id="donation-popup" style="display: none;">
+      <div id="popup-content">
+          Donation total has been updated!
+          <button id="close-popup">Close</button>
+      </div>
+    </div>
+
 
     <div class="donation-counter">
       <h1> Total Donations: <span id="donation-total">0</span>
@@ -63,20 +105,47 @@
     </div>
 
     <script>
-        function updateDonationTotal() {
-            fetch('/get_total_donations')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('donation-total').innerText = data.total_donations;
-                })
-                .catch(error => console.error('Error fetching donation total:', error));
-        }
+      console.log("script is scripting")
 
-        // Update the donation total every 5 seconds
-        setInterval(updateDonationTotal, 5000);
+      let previousTotal = null;
 
-        // Initial fetch when the page loads
-        updateDonationTotal();
-    </script>
+      function showPopup() {
+          document.getElementById('donation-popup').style.display = 'block';
+      }
+
+      function closePopup() {
+          document.getElementById('donation-popup').style.display = 'none';
+      }
+
+      document.getElementById('close-popup').addEventListener('click', closePopup);
+
+      function updateDonationTotal() {
+          fetch('/get_total_donations')
+              .then(response => response.json())
+              .then(data => {
+                  const donationTotalElement = document.getElementById('donation-total');
+                  const newTotal = data.total_donations;
+
+                  // Check if the donation total has changed
+                  if (previousTotal !== null && previousTotal !== newTotal) {
+                      showPopup();
+                  }
+
+                  // Update the donation total in the DOM
+                  donationTotalElement.innerText = newTotal;
+
+                  // Store the new total for the next check
+                  previousTotal = newTotal;
+              })
+              .catch(error => console.error('Error fetching donation total:', error));
+      }
+
+      // Update the donation total every 5 seconds
+      setInterval(updateDonationTotal, 5000);
+
+      // Initial fetch when the page loads
+      updateDonationTotal();
+  </script>
+
 </body>
 </html>
