@@ -14,15 +14,14 @@
     </div>
     <div id="donation-popup" style="display: none;">
       <div id="popup-content">
-          Donation total has been updated!
-          <button id="close-popup">Close</button>
+          Donation earned: !
       </div>
   </div>
 
   <style>
     #donation-popup {
         position: fixed;
-        top: 50%;
+        top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 20px;
@@ -30,6 +29,8 @@
         border: 1px solid #ccc;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         z-index: 1000;
+        opacity: 1;
+        transition: opacity 1s ease; /* Fade-out transition */
     }
 
     #popup-content {
@@ -47,16 +48,16 @@
 </style>
 
 
+
     <div id="donation-popup" style="display: none;">
       <div id="popup-content">
-          Donation total has been updated!
-          <button id="close-popup">Close</button>
+          Donation of has been earned!
       </div>
     </div>
 
 
     <div class="donation-counter">
-      <h1> Total Donations: <span id="donation-total">0</span>
+      <h1> Total Donations: <span id="donation-total">€ 0</span>
           <div class="links-container">
               <a href="/mdt" class="hidden-link">MDT</a>
               <a href="/redcross" class="hidden-link">Redcross</a>
@@ -102,22 +103,40 @@
         <img src="../static/logos_sponsors/versteijnen.png" />
         <img src="../static/logos_sponsors/debeer.svg" />
       </div>
-    </div>
-
-    <script>
+    </div><script>
       console.log("script is scripting")
 
       let previousTotal = null;
+      let popupShown = false;
 
-      function showPopup() {
-          document.getElementById('donation-popup').style.display = 'block';
+      function showPopup(addedAmount) {
+          const popup = document.getElementById('donation-popup');
+          const popupContent = document.getElementById('popup-content');
+
+          // Update the popup content to show the added amount
+          popupContent.innerHTML = `
+              New donation earned of € ${addedAmount}!
+          `;
+
+          popup.style.display = 'block';
+          popup.style.opacity = '1'; // Make sure it starts fully visible
+
+          // Automatically fade out the popup after 2 seconds
+          setTimeout(() => {
+              popup.style.opacity = '0'; // Start the fade-out
+              setTimeout(() => {
+                  popup.style.display = 'none'; // Hide the popup after fade-out completes
+              }, 1000); // Match the duration of the CSS transition
+          }, 2000); // Wait 2 seconds before starting the fade-out
       }
 
       function closePopup() {
-          document.getElementById('donation-popup').style.display = 'none';
+          const popup = document.getElementById('donation-popup');
+          popup.style.opacity = '0'; // Start the fade-out
+          setTimeout(() => {
+              popup.style.display = 'none'; // Hide the popup after fade-out completes
+          }, 1000); // Match the duration of the CSS transition
       }
-
-      document.getElementById('close-popup').addEventListener('click', closePopup);
 
       function updateDonationTotal() {
           fetch('/get_total_donations')
@@ -128,14 +147,23 @@
 
                   // Check if the donation total has changed
                   if (previousTotal !== null && previousTotal !== newTotal) {
-                      showPopup();
+                      const addedAmount = newTotal - previousTotal;
+
+                      // Show the popup only if it hasn't been shown for this update
+                      if (!popupShown) {
+                          showPopup(addedAmount); // Pass the added amount to the popup
+                          popupShown = true; // Set the flag to true
+                      }
                   }
 
-                  // Update the donation total in the DOM
-                  donationTotalElement.innerText = newTotal;
+                  // Update the donation total in the DOM with the euro sign
+                  donationTotalElement.innerText = `€ ${newTotal}`;
 
                   // Store the new total for the next check
                   previousTotal = newTotal;
+
+                  // Reset the popupShown flag after the update
+                  popupShown = false;
               })
               .catch(error => console.error('Error fetching donation total:', error));
       }
