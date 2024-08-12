@@ -1,1 +1,55 @@
-<p>copy mdt and adjust</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAK Teller</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <!-- MAK Logo at the top left corner -->
+    <div class="header">
+        <img src="../static/mak_logo_wit.png" alt="MAK Logo" class="mak-logo">
+    </div>
+
+    <div class="info">
+        <h2>Meet the charity: Serve the City​</h2>
+        <h3>Line of information about what MDT is!</h3>
+        <br>
+        <img src="../static/logos_charities/servethecity.png" alt="">
+        <br>
+        <br>
+        <br>
+        <h3>Sponsored by:</h3>
+    </div>
+    <div>
+      <a href="/" class = "hidden-link-counter"> Back to counter</a>
+    </div>
+
+    <div class="logos-static">
+      <img src="../static/logos_sponsors/vanboekel.jpg" />
+    </div>
+
+
+    <script>
+        function updateDonationTotal() {
+            fetch('/get_total_donations')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('donation-total').innerText = data.total_donations;
+                })
+                .catch(error => console.error('Error fetching donation total:', error));
+        }
+
+        // Update the donation total every 5 seconds
+        setInterval(updateDonationTotal, 5000);
+
+        // Initial fetch when the page loads
+        updateDonationTotal();
+    </script>
+</body>
+</html>
